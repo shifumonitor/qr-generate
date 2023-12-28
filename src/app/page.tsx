@@ -15,6 +15,7 @@ import {
 } from 'react-icons/fa';
 import Label from './components/ui/Label';
 import Button from './components/ui/Button';
+import Input from './components/ui/Input';
 
 
 const defaultColors = [
@@ -46,16 +47,17 @@ export default function Home(){
     const [inputErrors, setInputErrors] = useState({
         email: '',
         phone: '',
+		firstName: '',
     });
 
     // Validate email format
-    const validateEmail = (email) => {
+    const validateEmail = (email: string) => {
         const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
         return re.test(email);
     };
     const [qrValue, setQrValue] = useState(defaultQRValue);
 
-     const handleInputChange = (event) => {
+     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
 		        // Validation logic
         if (name === 'firstName' && !value.trim()) {
@@ -81,7 +83,7 @@ export default function Home(){
     };
 
       
-    const handleSelectType = (type) => {
+    const handleSelectType = (type: string) => {
         setInputData({
             ...inputData,
             type
@@ -98,22 +100,25 @@ export default function Home(){
         }
     };
 	
-	
-	const downloadQRCode = () => {
-    // Get the QR Code element
-    const qrCodeElement = document.querySelector('canvas');
+const downloadQRCode = (qrValue: string) => {
+    // Assuming qrCodeElement is obtained via document.querySelector or similar
+    const qrCodeElement = document.querySelector('canvas') as HTMLCanvasElement;
 
-    // Create a temporary link element
-    const downloadLink = document.createElement('a');
-    downloadLink.href = qrCodeElement.toDataURL('image/png');
-    downloadLink.download = 'qr-code.png'; // File name for download
+    // Check if qrCodeElement is not null
+    if (qrCodeElement) {
+        // Continue with your logic if qrCodeElement is not null
+        const downloadLink = document.createElement('a');
+        downloadLink.href = qrCodeElement.toDataURL('image/png');
+        downloadLink.download = 'qr-code.png'; // File name for download
 
-    // Append link to the body, click it, and then remove it
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    } else {
+        // Handle the case where qrCodeElement is null
+        console.error('QR Code element not found');
+    }
 };
-
 	
 const renderVCardForm = () => {
     return (
@@ -121,40 +126,105 @@ const renderVCardForm = () => {
             {/* Row 1: First Name and Last Name */}
             <div className="flex space-x-3">
                 <div className="flex-1">
-                    <Label htmlFor="firstName">First Name</Label>
-                    <Input id="firstName" name="firstName" placeholder="John" value={inputData.firstName} onChange={handleInputChange}
-                        className="w-full p-2 border-b border-gray-300 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50" />
-					{inputErrors.firstName && <p className="text-red-500 text-xs">{inputErrors.firstName}</p>}
+                    <Label htmlFor="firstName" className="text-gray-700">
+                        First Name
+                    </Label>
+                    <Input 
+                        id="firstName" 
+                        name="firstName" 
+                        placeholder="John" 
+                        value={inputData.firstName} 
+                        onChange={handleInputChange}
+                        className="w-full p-2 border-b border-gray-300 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50" 
+                        required 
+                        type="text" 
+                    />
+                    {inputErrors.firstName && <p className="text-red-500 text-xs">{inputErrors.firstName}</p>}
                 </div>
                 <div className="flex-1">
-                    <Label htmlFor="lastName">Last Name</Label>
-                    <Input id="lastName" name="lastName" placeholder="Doe" value={inputData.lastName} onChange={handleInputChange} className="w-full p-2 border-b border-gray-300 focus:outline-none focus:border-blue-500" />	
+                    <Label htmlFor="lastName" className="text-gray-700">
+                        Last Name
+                    </Label>
+                    <Input 
+                        id="lastName" 
+                        name="lastName" 
+                        placeholder="Doe" 
+                        value={inputData.lastName} 
+                        onChange={handleInputChange} 
+                        className="w-full p-2 border-b border-gray-300 focus:outline-none focus:border-blue-500" 
+                        required 
+                        type="text" 
+                    />
                 </div>
             </div>
 
             {/* Row 2: Phone and Email */}
-            <div className="flex space-x-4">
-                <div className="flex-1 space-y-2">
-                    <Label htmlFor="phone">Phone</Label>
-                    <Input id="phone" name="phone" placeholder="+1 234 567 8900" value={inputData.phone} onChange={handleInputChange} />
-					{inputErrors.phone && <p className="text-red-500 text-xs">{inputErrors.phone}</p>}
+            <div className="flex space-x-3">
+                <div className="flex-1">
+                    <Label htmlFor="phone" className="text-gray-700">
+                        Phone
+                    </Label>
+                    <Input 
+                        id="phone" 
+                        name="phone" 
+                        placeholder="+1 234 567 8900" 
+                        value={inputData.phone} 
+                        onChange={handleInputChange} 
+                        className="w-full p-2 border-b border-gray-300 focus:outline-none focus:border-blue-500"
+						required  // Add this line
+        type="tel"  // Specify the type as "tel" for phone numbers
+                    />
+                    {inputErrors.phone && <p className="text-red-500 text-xs">{inputErrors.phone}</p>}
                 </div>
-                <div className="flex-1 space-y-2">
-                    <Label htmlFor="email">Email</Label>
-					<Input type="email" id="email" name="email" placeholder="example@email.com" value={inputData.email} onChange={handleInputChange} />
-					{inputErrors.email && <p className="text-red-500 text-xs">{inputErrors.email}</p>}
-				</div>
+                <div className="flex-1">
+                    <Label htmlFor="email" className="text-gray-700">
+                        Email
+                    </Label>
+                    <Input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="example@email.com" 
+                        value={inputData.email} 
+                        onChange={handleInputChange} 
+                        className="w-full p-2 border-b border-gray-300 focus:outline-none focus:border-blue-500"
+						required  // Add this line
+                    />
+                    {inputErrors.email && <p className="text-red-500 text-xs">{inputErrors.email}</p>}
+                </div>
             </div>
 
             {/* Row 3: Company and Website */}
-            <div className="flex space-x-4">
-                <div className="flex-1 space-y-2">
-                    <Label htmlFor="company">Company</Label>
-                    <Input id="company" name="company" placeholder="Company Name" value={inputData.company} onChange={handleInputChange} />
+            <div className="flex space-x-3">
+                <div className="flex-1">
+                    <Label htmlFor="company" className="text-gray-700">
+                        Company
+                    </Label>
+                    <Input
+						type="company"
+                        id="company" 
+                        name="company" 
+                        placeholder="Company Name" 
+                        value={inputData.company} 
+                        onChange={handleInputChange} 
+                        className="w-full p-2 border-b border-gray-300 focus:outline-none focus:border-blue-500"
+						required  // Add this line						
+                    />
                 </div>
-                <div className="flex-1 space-y-2">
-                    <Label htmlFor="website">Website</Label>
-                    <Input id="website" name="website" placeholder="https://example.com" value={inputData.website} onChange={handleInputChange} />
+                <div className="flex-1">
+                    <Label htmlFor="website" className="text-gray-700">
+                        Website
+                    </Label>
+                    <Input
+						type="website"
+                        id="website" 
+                        name="website" 
+                        placeholder="https://example.com" 
+                        value={inputData.website} 
+                        onChange={handleInputChange} 
+                        className="w-full p-2 border-b border-gray-300 focus:outline-none focus:border-blue-500" 
+						required  // Add this line
+                    />
                 </div>
             </div>
         </div>
@@ -163,7 +233,7 @@ const renderVCardForm = () => {
 
 	
 
-  const handleColorChange = (color, isForeground = true) => {
+  const handleColorChange = (color: string, isForeground = true) => {
     setInputData(prevData => ({
       ...prevData,
       ...(isForeground ? { foregroundColor: color } : { backgroundColor: color }),
@@ -203,7 +273,16 @@ const renderVCardForm = () => {
             <div className="mb-4">
                 <h2 className="text-lg font-semibold mb-2">Step 2: Input Form</h2>
                 {inputData.type === 'vCard' ? renderVCardForm() : (
-                    <Input id="url" name="url" placeholder="Enter URL" value={inputData.url} onChange={handleInputChange} className="w-full p-2 border border-gray-300 rounded-lg" />
+                            <Input 
+            id="url" 
+            name="url" 
+            placeholder="Enter URL" 
+            value={inputData.url} 
+            onChange={handleInputChange} 
+            className="w-full p-2 border border-gray-300 rounded-lg"
+            required={true}  // assuming it's a required field
+            type="url"  // specify the type as 'url'
+        />
                 )}
             </div>
         );
