@@ -15,7 +15,6 @@ import {
 } from 'react-icons/fa';
 import Label from './components/ui/Label';
 import Button from './components/ui/Button';
-import Input from './components/ui/Input';
 
 
 const defaultColors = [
