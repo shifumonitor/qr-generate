@@ -50,6 +50,11 @@ export default function Home(){
 		firstName: '',
     });
 
+	const [selectedForegroundColor, setSelectedForegroundColor] = useState(inputData.foregroundColor);
+const [selectedBackgroundColor, setSelectedBackgroundColor] = useState(inputData.backgroundColor);
+
+
+
     // Validate email format
     const validateEmail = (email: string) => {
         const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -233,24 +238,35 @@ const renderVCardForm = () => {
 
 	
 
-  const handleColorChange = (color: string, isForeground = true) => {
-    setInputData(prevData => ({
-      ...prevData,
-      ...(isForeground ? { foregroundColor: color } : { backgroundColor: color }),
-    }));
-  };
+const handleColorChange = (color, isForeground = true) => {
+  setInputData(prevData => ({
+    ...prevData,
+    ...(isForeground ? { foregroundColor: color } : { backgroundColor: color }),
+  }));
+  if (isForeground) {
+    setSelectedForegroundColor(color);
+  } else {
+    setSelectedBackgroundColor(color);
+  }
+};
 
-  const renderColorPicker = (isForeground = true) => {
-    return (
-      <div className="flex space-x-2">
-        {defaultColors.map(color => (
-          <div key={color} className="w-6 h-6 rounded-full cursor-pointer"
-               style={{ backgroundColor: color }}
-               onClick={() => handleColorChange(color, isForeground)} />
-        ))}
-      </div>
-    );
-  };
+
+const renderColorPicker = (isForeground = true) => {
+  const selectedColor = isForeground ? selectedForegroundColor : selectedBackgroundColor;
+  return (
+    <div className="flex space-x-2">
+      {defaultColors.map(color => (
+        <div 
+          key={color}
+          className={`w-6 h-6 rounded-full cursor-pointer border-2 ${color === selectedColor ? 'ring-2 ring-offset-2 ring-blue-500 border-transparent' : 'border-gray-200'}`}
+          style={{ backgroundColor: color }}
+          onClick={() => handleColorChange(color, isForeground)}
+        />
+      ))}
+    </div>
+  );
+};
+
   
     const renderStep1 = () => {
         return (
