@@ -16,12 +16,7 @@ import {
 import Label from './components/ui/Label';
 import Button from './components/ui/Button';
 import Input from './components/ui/Input';
-import { Inter } from 'next/font/google';
 
-const inter = Inter({
-subsets:['latin'],
-weight:['400','700'],
-});
 
 const defaultColors = [
     '#00449E', // Rich Blue
@@ -232,7 +227,6 @@ const renderVCardForm = () => {
     };
 	
 	return (
-	<main className={inter.className}>
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 font-roboto">
         <Head>
             <title>QR Code Generator</title>
@@ -293,6 +287,5 @@ const renderVCardForm = () => {
             </div>
         </main>
     </div>
-	</main>
 );
 }
