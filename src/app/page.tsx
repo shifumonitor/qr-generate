@@ -238,7 +238,7 @@ const renderVCardForm = () => {
 
 	
 
-const handleColorChange = (color, isForeground = true) => {
+const handleColorChange = (color: string, isForeground = true) => {
   setInputData(prevData => ({
     ...prevData,
     ...(isForeground ? { foregroundColor: color } : { backgroundColor: color }),
