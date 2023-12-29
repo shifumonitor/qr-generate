@@ -59,7 +59,14 @@ export default function Component() {
   )
 }
 
-function ArrowRightIcon(props) {
+interface ArrowRightIconProps {
+  // Add any specific props you expect here
+  // For example:
+  // className?: string;
+  [key: string]: any; // This allows any additional props
+}
+
+function ArrowRightIcon(props: ArrowRightIconProps) {
   return (
     <svg
       {...props}
@@ -76,5 +83,5 @@ function ArrowRightIcon(props) {
       <path d="M5 12h14" />
       <path d="m12 5 7 7-7 7" />
     </svg>
-  )
+  );
 }
