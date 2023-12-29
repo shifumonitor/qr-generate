@@ -280,7 +280,7 @@ const renderColorPicker = (isForeground = true) => {
         return (
             <div className="mb-4">
                 <h2 className="text-lg font-semibold mb-2">Step 1: Choose Option</h2>
-                <div className="flex justify-start items-center space-x-4">
+                <div className="flex flex-wrap gap-2 justify-center md:justify-start">
                     <button className="flex items-center px-4 py-2 border rounded hover:bg-gray-100 text-gray-700" onClick={() => handleSelectType('URL')}>
                         <FaGlobe className="mr-2" /> URL
                     </button>
@@ -311,7 +311,7 @@ const renderColorPicker = (isForeground = true) => {
     const renderStep3 = () => {
         return (
             <div>
-                <h2 className="text-lg font-semibold mb-2">Step 3: Select Color</h2>
+				<h2 className="text-base sm:text-lg font-semibold mb-2">Step 3: Select Color</h2>
                 <div className="mb-2">
                     <div className="font-semibold">Foreground Color:</div>
                     {renderColorPicker()}
@@ -358,24 +358,36 @@ const renderColorPicker = (isForeground = true) => {
             <meta name="description" content="Generate your QR code" />
             <link rel="icon" href="/favicon.ico" />
         </Head>
-        <main className="container mx-auto p-4 flex flex-col md:flex-row gap-4">
-            <div className="w-1/2 p-4 bg-white rounded-lg shadow">
+        <main className="flex flex-col md:flex-row gap-4 w-full">
+            <div className="w-full md:w-1/2 p-4 bg-white rounded-lg shadow">
 			<h1 className="text-2xl font-bold text-center mb-6 text-gray-800">Design</h1>
                 {/* Step 1: Choose Option */}
-               <div className="mb-8">
+               <div className="mb-4">
   <h2 className="text-sm md:text-base font-semibold mb-2 text-gray-800">1) Choose Option</h2>
   <div className="flex justify-start items-center space-x-4">
-    <button className="flex items-center px-4 py-2 border rounded hover:bg-gray-200 transition duration-300 text-gray-700" onClick={() => handleSelectType('URL')}>
-      <FaGlobe className="mr-2" /> URL
+<button
+  className={`flex items-center px-4 py-2 border rounded 
+              ${inputData.type === 'URL' ? 'bg-blue-500 text-white' : 'hover:bg-gray-100 text-gray-700'}`}
+  onClick={() => handleSelectType('URL')}>
+  <FaGlobe className="mr-2" /> URL
+</button>
+    <button
+  className={`flex items-center px-4 py-2 border rounded 
+              ${inputData.type === 'vCard' ? 'bg-blue-500 text-white' : 'hover:bg-gray-100 text-gray-700'}`}
+      onClick={() => handleSelectType('vCard')}>
+	  <FaAddressCard className="mr-2" /> vCard
     </button>
-    <button className="flex items-center px-4 py-2 border rounded hover:bg-gray-200 transition duration-300 text-gray-700" onClick={() => handleSelectType('vCard')}>
-      <FaAddressCard className="mr-2" /> vCard
+	    <button
+  className={`flex items-center px-4 py-2 border rounded 
+              ${inputData.type === 'WhatsApp' ? 'bg-blue-500 text-white' : 'hover:bg-gray-100 text-gray-700'}`}
+      onClick={() => handleSelectType('WhatsApp')}>
+	  <FaAddressCard className="mr-2" /> WhatsApp
     </button>
-    <button className="flex items-center px-4 py-2 border rounded hover:bg-gray-200 transition duration-300 text-gray-700" onClick={() => handleSelectType('WhatsApp')}>
-      <FaWhatsapp className="mr-2" /> WhatsApp
-    </button>
-    <button className="flex items-center px-4 py-2 border rounded hover:bg-gray-200 transition duration-300 text-gray-700" onClick={() => handleSelectType('Instagram')}>
-      <FaInstagram className="mr-2" /> Instagram
+	    <button
+  className={`flex items-center px-4 py-2 border rounded 
+              ${inputData.type === 'Instagram' ? 'bg-blue-500 text-white' : 'hover:bg-gray-100 text-gray-700'}`}
+      onClick={() => handleSelectType('Instagram')}>
+	  <FaAddressCard className="mr-2" /> Instagram
     </button>
   </div>
 </div>
