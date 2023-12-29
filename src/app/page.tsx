@@ -45,7 +45,7 @@ export default function Component() {
           </span>
         </h2>
         <p className="mt-6 text-xl text-gray-700">
-          Say goodbye to complex QR codes. Meet QReator — the free, simple QR builder you've been looking for.
+          Say goodbye to complex QR codes. Meet QReator — the free, simple QR builder you have been looking for.
         </p>
         <Link href="/qr-generator">
           <button className="mt-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded inline-flex items-center">
