@@ -6,6 +6,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Button from './components/ui/Button';
+import { Analytics } from '@vercel/analytics/react';
 
 export default function Component() {
   return (
@@ -54,6 +55,7 @@ export default function Component() {
         <div className="mt-10">
         </div>
       </main>
+	  <Analytics />
     </div>
 	</div>
   )
