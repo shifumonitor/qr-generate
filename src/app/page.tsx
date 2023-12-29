@@ -9,6 +9,7 @@ import Button from './components/ui/Button';
 
 export default function Component() {
   return (
+  <div className="bg-white min-h-screen">
     <div key="1" className="container bg-white mx-auto px-4 relative">
       <header className="flex justify-between items-center py-4">
         <h1 className="text-2xl text-gray-600 font-bold">QReator</h1>
@@ -30,7 +31,9 @@ export default function Component() {
               </Link>
             </li>
             <li>
-              <Button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              <Button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+			  onClick={() => {}}
+			  type="button" >
                 Create QR code
               </Button>
             </li>
@@ -48,16 +51,16 @@ export default function Component() {
           Say goodbye to complex QR codes. Meet QReator — the free, simple QR builder you have been looking for.
         </p>
         <Link href="/qr-generator">
-          <button className="mt-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded inline-flex items-center">
-            Create QR code
+          <button className="mt-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded inline-flex items-center" type="button" >
             <ArrowRightIcon className="ml-2" />
           </button>
         </Link>
         <p className="mt-4 text-sm text-gray-500">No signup required</p>
         <div className="mt-10">
-          </div>
+        </div>
       </main>
     </div>
+	</div>
   )
 }
 
