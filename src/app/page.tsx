@@ -55,6 +55,7 @@ export default function Component() {
         </Link>
         <p className="mt-4 text-sm text-gray-500">No signup required</p>
         <div className="mt-10">
+          </div>
       </main>
     </div>
   )
