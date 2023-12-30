@@ -2,27 +2,15 @@
 // pages/index.js
 // src/app/page.tsx
 
-
-import React, {
-    useState
-} from 'react';
+import React, {useState} from 'react';
 import QRCode from 'qrcode.react';
 import Head from 'next/head';
-import {
-    FaGlobe,
-    FaAddressCard,
-    FaDownload,
-	FaWhatsapp,
-	FaInstagram
-} from 'react-icons/fa';
+import {FaGlobe, FaAddressCard, FaDownload, FaInstagram, FaWhatsapp} from 'react-icons/fa';
 import Label from '../components/ui/Label';
-import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 import Link from 'next/link';
 
-
-const defaultColors = [
-    '#00449E', // Rich Blue
+const defaultColors = ['#00449E', // Rich Blue
     '#357EDD', // Soft Blue
     '#F2355B', // Vibrant Pink
     '#FFB700', // Bright Yellow
@@ -32,6 +20,7 @@ const defaultColors = [
     '#000000', // Black
     '#FFFFFF', // White
 ];
+
 export default function Home(){ 
 	const defaultQRValue = "Welcome to QR Code Generator"; // Set your default QR code value here
     const [inputData, setInputData] = useState({
@@ -56,8 +45,9 @@ export default function Home(){
     });
 
 	const [selectedForegroundColor, setSelectedForegroundColor] = useState(inputData.foregroundColor);
-const [selectedBackgroundColor, setSelectedBackgroundColor] = useState(inputData.backgroundColor);
-
+	const [selectedBackgroundColor, setSelectedBackgroundColor] = useState(inputData.backgroundColor);
+	
+	
     // Validate email format
     const validateEmail = (email: string) => {
         const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -331,7 +321,7 @@ const renderColorPicker = (isForeground = true) => {
 		<button className="text-2xl text-gray-600 font-bold">QReator</button>
 		</Link>
         <nav>
-          <ul className="flex space-x-4">
+          <ul className="hidden sm:flex space-x-4">
             <li>
               <Link className="text-base text-gray-600 hover:text-gray-800" href="#">
                 Pricing
@@ -381,13 +371,13 @@ const renderColorPicker = (isForeground = true) => {
   className={`flex items-center px-4 py-2 border rounded 
               ${inputData.type === 'WhatsApp' ? 'bg-blue-500 text-white' : 'hover:bg-gray-100 text-gray-700'}`}
       onClick={() => handleSelectType('WhatsApp')}>
-	  <FaAddressCard className="mr-2" /> WhatsApp
+	  <FaWhatsapp className="mr-2" /> WhatsApp
     </button>
 	    <button
   className={`flex items-center px-4 py-2 border rounded 
               ${inputData.type === 'Instagram' ? 'bg-blue-500 text-white' : 'hover:bg-gray-100 text-gray-700'}`}
       onClick={() => handleSelectType('Instagram')}>
-	  <FaAddressCard className="mr-2" /> Instagram
+	  <FaInstagram className="mr-2" /> Instagram
     </button>
   </div>
 </div>
@@ -426,7 +416,7 @@ const renderColorPicker = (isForeground = true) => {
                 </div>
             </div>
         </main>
-	      <footer className="border-t py-4 text-center">
+	      <footer className="border-t py-4 text-center text-gray-800">
         <span>© QReator - Your simple QR solution.</span>
       </footer>
 	</div>
