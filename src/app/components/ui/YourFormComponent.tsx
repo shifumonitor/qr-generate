@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Input from './Input'; // Adjust the relative path as necessary
 import Label from './Label';
 import Button from './Button';
@@ -6,6 +6,8 @@ import Card from './Card';
 import CardContent from './CardContent';
 import CardHeader from './CardHeader'; // Adjust the path as necessary
 import Textarea from './Textarea';
+
+const noop = () => {};
 
 const YourFormComponent: React.FC = () => {
   // Assuming you have a state to store form data
@@ -23,12 +25,38 @@ const YourFormComponent: React.FC = () => {
     });
   };
 
-  // Add a function to handle form submission
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [submitted, setSubmitted] = useState(false); // State to track form submission
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
-    // Further processing...
+    const webAppUrl = "https://script.google.com/macros/s/AKfycbwdpSbkfg6ReNsHwOs5w3LeBq5cep_zDKX_0mIJg89NVA0QgZy8bSB2Gn-N8Mt5Fma-/exec"; // Replace with your Google Sheets Web App URL
+
+    try {
+      const response = await fetch(webAppUrl, {
+        method: 'POST',
+        mode: 'no-cors', // Important for CORS policy
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      setSubmitted(true); // Set the submitted state to true
+    } catch (error) {
+      console.error('There was a problem with your fetch operation:', error);
+    }
   };
+
+  if (submitted) {
+    return <div className="text-center my-4">
+             <h2 className="text-2xl font-semibold">Thank You!</h2>
+             <p>We have received your message.</p>
+           </div>;
+  }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -77,12 +105,13 @@ const YourFormComponent: React.FC = () => {
         required
               />
             </div>
-            {/* <Button
-              type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
+            <Button
+                    type="submit"
+                    onClick={noop}  // or onClick={handleSubmit}
+                    className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
               Submit
-            </Button> */}
+            </Button>
           </form>
         </CardContent>
       </Card>
